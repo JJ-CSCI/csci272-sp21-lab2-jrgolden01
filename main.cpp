@@ -5,10 +5,11 @@
 //------------------------------
 
 // Use this enum class for indicating the lat/long direction
-enum class Compass{N,S,W,E};
+enum class Compass {N,S,W,E};
 
 // Write your code here
-class GPS{
+
+class GPS {
 private: 
   double latitude;
   double longitude;
@@ -16,56 +17,38 @@ private:
   Compass LongitudeDirection; 
 
 public:
-double getLongitude(){
-  return longitude;
-}
-double getLatitude(){
-  return latitude;
-}
-Compass getLongitudeDirection(){
-  return LongitudeDirection;
-}
-Compass getLatitudeDirection(){
-  return LatitudeDirection;
-}
+GPS(double lat, double lon): 
+  GPS(lat, Compass::N, lon, Compass::W){}
 
-GPS(){
-  latitude = 0;
-  longitude = 0;
-  LatitudeDirection = Compass::N;
-  LongitudeDirection = Compass::W;
-}
+GPS(double lat = 0.0, Compass latd = Compass::N, double lon = 0.0, Compass lond = Compass::W){
+  if (lat >=0.0 || lat<=90)
+    latitude = 0.0;
+  else
+    latitude = lat;
 
-GPS(double latitude, double longitude){
-if (latitude >=0 && latitude <=90)
-  this -> latitude = latitude;
+  if (lon >=0.0 && lon<=180)
+    longitude = lon;
+  else
+    longitude = 0.0;
+ 
+if (latd == Compass::N || latd == Compass:: S)
+  LatitudeDirection = latd;
+
 else 
-  this -> latitude = 0;
-if (longitude >=0 && longitude<=180)
-  this -> longitude = longitude;
-else longitude = 0;
   LatitudeDirection = Compass::N;
+
+if (lond == Compass::W || lond == Compass::E)
+  LongitudeDirection = lond;
+else
   LongitudeDirection = Compass::W;
 }
 
-GPS(double latitude, double longitude,Compass LatitudeDirection, Compass LongitudeDirection){
-if (latitude >=0 && latitude <=90){
-  this -> latitude = latitude;
-  this ->LatitudeDirection = LatitudeDirection;
-}
-else{
-  this -> latitude = 0;
-  this -> LatitudeDirection = Compass::N;
-}
-if (longitude >=0 && longitude<=180){
-  this -> longitude = longitude;
-  this -> LongitudeDirection = LongitudeDirection;
-}
-else{
-  this -> longitude = 0;
-  this -> LongitudeDirection = Compass::W;
-}
+double getLongitude(){return longitude;}
+double getLatitude(){return latitude;} 
+Compass getLongitudeDirection(){return LongitudeDirection;}
+Compass getLatitudeDirection(){return LatitudeDirection;}
 };
+
 
 //------------------------------
 //   DO NOT MODIFY TEST CASES
