@@ -11,37 +11,53 @@ enum class Compass {N,S,W,E};
 
 class GPS {
 private: 
-  double latitude;
-  double longitude;
-  Compass LatitudeDirection; 
-  Compass LongitudeDirection; 
+  double latitude{0.0};
+  double longitude{0.0};
+  Compass LatitudeDirection{Compass::N}; 
+  Compass LongitudeDirection{Compass::W}; 
 
 public:
-GPS(double lat, double lon): 
-  GPS(lat, Compass::N, lon, Compass::W){}
+GPS(){ 
+  latitude=0.0;
+  LatitudeDirection=Compass::N;
+  longitude=0.0;
+  LongitudeDirection= Compass::W;
+};
+GPS(double lat, double lon){
+  if ((0<=lat)&& (lat<=90))
+  latitude=lat;
+  else 
+  latitude =0.0;
+  LatitudeDirection=Compass::N;
 
-GPS(double lat = 0.0, Compass latd = Compass::N, double lon = 0.0, Compass lond = Compass::W){
-  if (lat >=0.0 || lat<=90)
-    latitude = 0.0;
-  else
-    latitude = lat;
-
-  if (lon >=0.0 && lon<=180)
-    longitude = lon;
-  else
-    longitude = 0.0;
+   if ((0<=lon)&& (lon<=180))
+ longitude=lon;
+  else 
+  longitude =0.0;
+  LongitudeDirection= Compass::W;
+}; 
  
-if (latd == Compass::N || latd == Compass:: S)
-  LatitudeDirection = latd;
+GPS(double lat, Compass latd, double lon, Compass lond){
+  if ((0<=lat)&& (lat<=90))
+  latitude=lat;
+  else 
+  latitude =0.0;
+  if (latd== Compass::N || latd == Compass::S)
+    LatitudeDirection=latd;
+    else 
+  LatitudeDirection=Compass::N;
 
-else 
-  LatitudeDirection = Compass::N;
 
-if (lond == Compass::W || lond == Compass::E)
-  LongitudeDirection = lond;
-else
-  LongitudeDirection = Compass::W;
-}
+
+  if ((0<=lon)&& (lon<=180))
+ longitude=lon;
+  else 
+  longitude =0.0;
+  if(lond == Compass::W || lond== Compass:: E)
+  LongitudeDirection = lond; 
+  else 
+ LongitudeDirection= Compass::W;
+};
 
 double getLongitude(){return longitude;}
 double getLatitude(){return latitude;} 
