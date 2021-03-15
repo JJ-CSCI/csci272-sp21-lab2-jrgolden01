@@ -5,12 +5,66 @@
 //------------------------------
 
 // Use this enum class for indicating the lat/long direction
-enum class Compass {N, S, W, E};
+enum class Compass {N,S,W,E};
 
 // Write your code here
-class GPS {
 
+class GPS {
+private: 
+  double latitude{0.0};
+  double longitude{0.0};
+  Compass LatitudeDirection{Compass::N}; 
+  Compass LongitudeDirection{Compass::W}; 
+
+public:
+GPS(){ 
+  latitude=0.0;
+  LatitudeDirection=Compass::N;
+  longitude=0.0;
+  LongitudeDirection= Compass::W;
 };
+GPS(double lat, double lon){
+  if ((0<=lat)&& (lat<=90))
+  latitude=lat;
+  else 
+  latitude =0.0;
+  LatitudeDirection=Compass::N;
+
+   if ((0<=lon)&& (lon<=180))
+ longitude=lon;
+  else 
+  longitude =0.0;
+  LongitudeDirection= Compass::W;
+}; 
+ 
+GPS(double lat, Compass latd, double lon, Compass lond){
+  if ((0<=lat)&& (lat<=90))
+  latitude=lat;
+  else 
+  latitude =0.0;
+  if (latd== Compass::N || latd == Compass::S)
+    LatitudeDirection=latd;
+    else 
+  LatitudeDirection=Compass::N;
+
+
+
+  if ((0<=lon)&& (lon<=180))
+ longitude=lon;
+  else 
+  longitude =0.0;
+  if(lond == Compass::W || lond== Compass:: E)
+  LongitudeDirection = lond; 
+  else 
+ LongitudeDirection= Compass::W;
+};
+
+double getLongitude(){return longitude;}
+double getLatitude(){return latitude;} 
+Compass getLongitudeDirection(){return LongitudeDirection;}
+Compass getLatitudeDirection(){return LatitudeDirection;}
+};
+
 
 //------------------------------
 //   DO NOT MODIFY TEST CASES
